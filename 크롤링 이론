@@ -1,0 +1,96 @@
+<<크롤링>>
+
+◉크롤링(craling)이란?
+  •Web에서 돌아다니면서 원하는 정보를 수집하는 행위
+  •웹 상에 존재하는 이미지, 텍스트 API등
+  •크롤링은 크게 정적 크롤링과 동적 크롤링으로 나누어 질 수 있다.
+    •정적크롤링
+      •특정 URL을 통해 데이터 수집 가능
+      •속도가 빠르지만 수집 대상에 한계가 있다.
+      •requests, BeautifulSoup
+    •동적크롤링
+      •특별한 절차 없이 특정 URL을 통해 데이터 수집 불가능
+      •속도가 느리지만, 수집 대상에 한계가 거의 없다.
+      •selenium
+      
+      
+◉requests
+          Http GET Request
+          req = requests.get(쇼핑몰 주소)
+
+          HTML 소스 가져오기
+          html = req.text
+
+          HTTP Header 가져오기
+          header = req.headers
+
+          HTTP Status 가져오기 (200: 정상)
+          status = req.status_code
+
+          HTTP가 정상적으로 되었는지 (True/False)
+          is_ok = req.ok
+      
+  •request라이브러리와 urllib.request 차이는?
+      1.urllib.request의 경우에는 내가 크롤링한 기록이 남게 된다.
+      2.request를 사용하면 header값을 임의로 수정할 수 있어서, 비교적 자유롭게 크롤링 가능
+      3.가능하면 request를 쓰는 것을 권장
+
+◉Beautiful soup
+          from urllib.request import Request
+          from urllib.request import urlopen
+          from bs4 import BeautifulSoup
+          import urllib.request
+          import re
+          import numpy as np
+          import time
+          import os
+          import random
+          import time
+
+          Http GET Request
+          url = [쇼핑몰주소]
+          req = Request(url,headers={'User-Agent':'Mozila/5.0'})
+          webpage = urlopen(req)
+          soup = BeautifulSoup(webpage)
+          
+          
+          
+  •requests를 통해서 HTML을 받아올 수 있지만 Python이 이해하는 객체 구조로 직렬화 불가
+  •받아온 HTML을 의미있는 형태로 만들어주기 위해 BeautifulSoup 사용.
+  •BeautifulSoup는 객체 구조를 변환시켜주는 Parsing 역할을 맡고있다.
+  •접근할 수 있는 데이터는 정적 웹 페이지만 가능
+  •HTML의 태그를 파싱해서 필요한 데이터를 추출하는 함수를 제공하는 라이브러리
+  •설치 방법 : pip install bs4
+  •라이브러리 URL : https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+
+  
+◉Selenium을 이용한 크롤링
+  •가상의 웹 브라우저를 띄우고 데이터 자동 수집 - 크롤링 못하도록 막은 사이트도 데이터 수집가능
+  •설치 방법 : pip install selenium
+  •Chrome WebDriver, 본인의 크롬 버전 확인하고 OS에 따라 Driver 설치하기!!
+            from selenium import webdriver
+            driver = webdriver.Chrome('/Users/beomi/Downloads/chromedriver')
+            driver.implicitly_wait(3)
+            ## url에 접근한다.
+            driver.get('https://nid.naver.com/nidlogin.login')
+
+
+◉형태소 분석
+  •크롤링된 데이터를 KoNLPy 라이브러리를 통해 형태소 분석
+ 
+ 
+◉시각화
+  •형태소 분석된 데이터를 wordcloud로 시각화
+  
+  
+  
+  
+  
+  
+  
+◉참고
+https://velog.io/@changhtun1/Python-%EB%8F%99%EC%A0%81-%EC%9B%B9-%ED%81%AC%EB%A1%A4%EB%A7%81
+https://www.fun-coding.org/crawl_basic2.html
+https://beomi.github.io/gb-crawling/posts/2017-02-27-HowToMakeWebCrawler-With-Selenium.html
+
+  
